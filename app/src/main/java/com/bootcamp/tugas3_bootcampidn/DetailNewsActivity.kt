@@ -3,6 +3,7 @@ package com.bootcamp.tugas3_bootcampidn
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bootcamp.tugas3_bootcampidn.databinding.ActivityDetailNewsBinding
+import com.bumptech.glide.Glide
 
 class DetailNewsActivity : AppCompatActivity() {
 
@@ -15,11 +16,16 @@ class DetailNewsActivity : AppCompatActivity() {
 		setContentView(binding.root)
 
 
-		val news = intent.getParcelableExtra<News>(EXTRA_NEWS)!!
+		val news = intent.getParcelableExtra<ArticlesItem>(EXTRA_NEWS)!!
 
 		binding.apply {
-			imgNews.setImageResource(news.imgNews)
-			tvJudul.text = news.titleNews
+//			imgNews.setImageResource(news.urlToImage)
+			Glide.with(imgNews)
+				.load(news.urlToImage)
+				.error(R.drawable.ic_launcher_background)
+				.into(imgNews)
+
+			tvJudul.text = news.title
 			tvDeskripsi.text = news.description
 
 		}
